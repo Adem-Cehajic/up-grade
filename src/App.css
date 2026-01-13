@@ -1,0 +1,177 @@
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  /*text-align: center;*/
+}
+
+.rpage{
+  height: 100vh;
+}
+.invalid{
+  color: red;
+  font-size: initial;
+}
+.loginform{
+  padding: 5vh;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3vh;
+}
+.loginform button{
+  font-size: initial;
+  width: initial;
+  height: 5vh;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  color: white;
+
+}
+.loginform input{
+  margin-top: 10%;
+  margin-bottom: 10%;
+  background-color: #111111;
+  border-style:outset;
+
+}
+.loginform button *{
+  color: white;
+}
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end; /* pushes items to the right */
+  align-items: center;
+  height: 10vh;  
+  gap: 5px;
+}
+p{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: grey;
+}
+  
+h1{
+  padding-top: 1%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 10vh;
+}
+button{
+  height: 60%;
+  width: 5%;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+button *{
+  min-height: 100%;
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subhead{
+  display: flex;
+  justify-content: center;
+  padding: 1%;
+}
+.logo{
+  max-width: 20%;
+  aspect-ratio: 1 / 1.2;
+  padding: 0% 5%;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;      /* vertical centering */
+  justify-content: center;  /* horizontal centering */
+  text-align: center;
+
+  background-color: #646cff;
+  color: #111111;
+  border-radius: 5%;
+  font-size: 3em;
+  font-weight: bold;
+
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.mainbox {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5%;
+  margin: 5%;
+}
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.App{
+  color: #646cff;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html,
+body 
+{
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  overflow-y: scroll;
+}
+
+#cnl{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.boardform{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1vh;
+}
+.boardbutton{
+  width: fit-content;
+  padding: 10%;
+}
+#jel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
