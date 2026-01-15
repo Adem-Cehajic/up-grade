@@ -68,17 +68,43 @@ function Home({user}) {
     const match = data.find(board => 
         board.name === submittedName && board.joincode === submittedJoincode
       );
+    const bname = match.name;
     if(!match){
       setErrmess(true)
     }
     else{
       const bdata = Object.values(match.board_info);
+      const newmem = bdata.length +1
       try{
         const userin = bdata.find(mem =>
           mem.username === user.username
         );
         if(userin){
           setLogooption("See Current Standings");
+        }
+        else{ 
+          try {
+          
+              const response = await fetch('http://localhost:3000/api/data/lb', {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                memberKey: "member"+newmem,
+                username: user,
+                name2: bname
+              })
+              });
+              if(!response.ok){
+                setErrmess(true);
+                return;
+              }
+              else{
+                setErrmess(false);
+                setLogooption("See Current Standings");
+              }
+            } catch (error) {
+              setErrmess(true);
+            }    
         }
       setErrmess(false); 
       }catch(error){

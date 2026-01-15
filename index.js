@@ -76,6 +76,23 @@ app.get('/api/data/lb', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.put('/api/data/lb', async (req, res) => {
+  try {
+    const { memberKey, username,name2 } = req.body; // e.g., memberKey: "member2", username: "bob"
+    
+    const result = await pool.query(
+      `UPDATE leaderboards 
+       SET board_info = jsonb_set(board_info, $1, $2)
+       WHERE name = $3
+       RETURNING *`,
+      [`{${memberKey}}`, username, name2]
+    );
+    
+    res.json({ success: true, data: result.rows[0] });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
