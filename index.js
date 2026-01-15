@@ -1,10 +1,12 @@
 import express from 'express';
 import pg from 'pg';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 const { Pool } = pg;
 const app = express();
 const port = 3000;
+dotenv.config();
 
 // Middleware
 app.use(cors()); // Allow React to connect
@@ -59,6 +61,15 @@ app.post('/api/data/lb', async (req, res) => {
 app.get('/api/data', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM users');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/data/lb', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM leaderboards');
     res.json(result.rows);
   } catch (error) {
     console.error('Database error:', error);

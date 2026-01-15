@@ -2,7 +2,9 @@ import '../App.css'
 import { Link } from "react-router-dom"; 
 import React, { useState } from "react";
 import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 function Home({user}) {
+  const navigate = useNavigate();
   const [logooption, setLogooption] = useState("");
   const [errmess, setErrmess] = useState(false);
   useEffect(()=>{
@@ -12,6 +14,18 @@ function Home({user}) {
     //console.log(ele);
     }
   },[logooption]);
+
+  const getlbdata = async() =>{ //use this function everytime you want to make a get request from lb
+      try{
+        const response = await fetch('http://localhost:3000/api/data/lb');
+        const result = await response.json();
+        return result;
+      }
+      catch (error) {
+          console.error('Error:', error);
+          setErrmess(true);
+        }
+    }
 
   const createBoard = async(e,user) =>{
     e.preventDefault();
@@ -39,6 +53,7 @@ function Home({user}) {
     }
     else{
       setErrmess(false);
+      setLogooption("See Current Standings");
     }
     } catch (error) {
     setErrmess(true);
@@ -46,6 +61,30 @@ function Home({user}) {
   }
 
   const joinBoard = async(e,user) => {
+    e.preventDefault();
+    const submittedName = e.target.elements.name.value;
+    const submittedJoincode = e.target.elements.joincode.value;
+    let data = await getlbdata();
+    const match = data.find(board => 
+        board.name === submittedName && board.joincode === submittedJoincode
+      );
+    if(!match){
+      setErrmess(true)
+    }
+    else{
+      const bdata = Object.values(match.board_info);
+      try{
+        const userin = bdata.find(mem =>
+          mem.username === user.username
+        );
+        if(userin){
+          setLogooption("See Current Standings");
+        }
+      setErrmess(false); 
+      }catch(error){
+        navigate('/login');
+      }
+    }
     
   }
 
@@ -72,8 +111,9 @@ function Home({user}) {
         </form>
       </div>)}
       {(logooption == "Join Existing Leaderboard") && (<div className='rpage' id='jel'>
-        <form className='boardform' onSubmit={(e) => createBoard(e, user)}>
+        <form className='boardform' onSubmit={(e) => joinBoard(e, user)}>
           {errmess && (<div className='invalid'>Invalid LeaderBoard</div>)}
+          <input name='name' placeholder='Leaderboard name' />
           <input name='joincode' placeholder='join code'/>
           <button className='boardbutton'>Join</button>
         </form>
