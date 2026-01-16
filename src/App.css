@@ -166,6 +166,12 @@ body
   justify-content: center;
   gap: 1vh;
 }
+
+.boardform input{
+  background-color: rgb(59, 59, 59);
+  border-color: rgb(135, 135, 135);
+
+}
 .boardbutton{
   width: fit-content;
   padding: 10%;
