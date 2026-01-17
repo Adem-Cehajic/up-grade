@@ -36,7 +36,8 @@
   margin-bottom: 10%;
   background-color: #111111;
   border-style:outset;
-
+  background-color: rgb(59, 59, 59);
+  border-color: rgb(135, 135, 135);
 }
 .loginform button *{
   color: white;
