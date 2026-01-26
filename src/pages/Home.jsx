@@ -7,6 +7,8 @@ function Home({user}) {
   const navigate = useNavigate();
   const [logooption, setLogooption] = useState("");
   const [errmess, setErrmess] = useState(false);
+  const [boards, setBoards] = useState([]);
+
   useEffect(()=>{
     const ele = document.getElementsByClassName("rpage");
     if (ele.length > 0){
@@ -14,6 +16,16 @@ function Home({user}) {
     //console.log(ele);
     }
   },[logooption]);
+
+  useEffect(()=>{
+    async function loadData() {
+    const datab = await getlbdata();
+    setBoards(datab);
+    console.log(datab);
+    }
+    loadData();
+
+  },[]);
 
   const getlbdata = async() =>{ //use this function everytime you want to make a get request from lb
       try{
@@ -111,9 +123,11 @@ function Home({user}) {
         navigate('/login');
       }
     }
-    
   }
-
+  function userBoards(user) {
+    console.log(user, boards); // Now it can access boards state
+    return <div>hi</div>;
+  }
   return (
     <div className="App">
       <div className="header">
@@ -145,7 +159,7 @@ function Home({user}) {
         </form>
       </div>)}
       {(logooption == "See Current Standings") && (<div className='rpage'>
-        g
+        {userBoards(user)}
       </div>)}
       </div>
     </div>
