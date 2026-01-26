@@ -21,7 +21,6 @@ function Home({user}) {
     async function loadData() {
     const datab = await getlbdata();
     setBoards(datab);
-    console.log(datab);
     }
     loadData();
 
@@ -126,7 +125,19 @@ function Home({user}) {
   }
   function userBoards(user) {
     console.log(user, boards); // Now it can access boards state
-    return <div>hi</div>;
+    if (boards == null){
+      return <div className='invalid'>Error Unable to retrieve board</div>; 
+    }
+
+    return (
+      <ul>
+      {boards.map(board => 
+        <li key={board.name}>
+          leaderboard
+        </li>
+      )}
+    </ul>
+    );
   }
   return (
     <div className="App">
