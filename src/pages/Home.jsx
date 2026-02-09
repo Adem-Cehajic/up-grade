@@ -124,16 +124,27 @@ function Home({user}) {
     }
   }
   function userBoards(user) {
-    console.log(user, boards); // Now it can access boards state
-    if (boards == null){
+    //console.log(user, boards); // Now it can access boards state
+    if (boards == null || user == null){
       return <div className='invalid'>Error Unable to retrieve board</div>; 
     }
-
+    let charbord = [];
+    let lencb = 0;
+    for(const brd of boards){
+      let sbord = brd.board_info;
+      for(const mem in sbord){
+        //console.log(sbord[mem].username, user.username);
+        if(sbord[mem].username == user.username){
+          charbord[lencb]= Object.assign(brd,charbord[lencb]);
+          lencb++;
+        }
+      }
+    }
     return (
-      <ul>
-      {boards.map(board => 
-        <li key={board.name}>
-          leaderboard
+      <ul className='boardlist'>
+      {charbord.map((board) => 
+        <li>
+          <button key={board.name} className='boardbutton' onClick={()=>{console.log('hi')}}>{board.name}</button>
         </li>
       )}
     </ul>
@@ -169,7 +180,8 @@ function Home({user}) {
           <button className='boardbutton'>Join</button>
         </form>
       </div>)}
-      {(logooption == "See Current Standings") && (<div className='rpage'>
+      {(logooption == "See Current Standings") && (<div className='rpage' id='lbp'>
+        
         {userBoards(user)}
       </div>)}
       </div>
